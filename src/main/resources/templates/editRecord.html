@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Record</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h2 class="my-4">Edit Record</h2>
+    <div th:if="${record}">
+        <form th:action="@{'/records/archivist/' + ${record.recordId} + '/edit/save'}" method="post" th:object="${recordForm}" class="needs-validation">
+
+            <div class="form-group">
+                <label for="firstName">First Name: </label>
+                <input type="text" id="firstName" class="form-control" th:field="*{firstName}">
+                <p>Old value of First Name: <span th:text="${record.firstName}"></span></p>
+                <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name: </label>
+                <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
+                <p>Old value of Last Name: <span th:text="${record.lastName}"></span></p>
+                <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="yearOfGraduation">Year Of Graduation: </label>
+                <input type="number" id="yearOfGraduation" class="form-control" th:field="*{yearOfGraduation}">
+                <p>Old value of Year Of Graduation: <span th:text="${record.yearOfGraduation}"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="yearOfEmployment">Year of Employment: </label>
+                <input type="number" id="yearOfEmployment" class="form-control" th:field="*{yearOfEmployment}">
+                <p>Old value of Year Of Employment: <span th:text="${record.yearOfEmployment}"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="faculty">Faculty: </label>
+                <input type="text" id="faculty" class="form-control" th:field="*{faculty}">
+                <p>Old value of Faculty: <span th:text="${record.faculty}"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department: </label>
+                <input type="text" id="department" class="form-control" th:field="*{department}">
+                <p>Old value of Department: <span th:text="${record.department}"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="recordNumber">Record Number: </label>
+                <input type="number" id="recordNumber" class="form-control" th:field="*{recordNumber}">
+                <p>Old value of Record Number: <span th:text="${record.recordNumber}"></span></p>
+                <div class="text-danger" th:if="${#fields.hasErrors('recordNumber')}" th:errors="*{recordNumber}">Record Number Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="shelfId">Shelf ID: </label>
+                <select id="shelfId" class="form-control" th:field="*{shelf}">
+                    <option th:each="shelf : ${shelves}" th:value="${shelf.shelfId}" th:text="${shelf.shelfNumber + ' - ' + shelf.description}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap JS и зависимостей Popper.js и jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-vc/g6uqQZ7z9P6tDk5OwC4WvDmjr9XFOkRbqnEKx27pcNaY0K2b60OHEtc1zP5KI"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/jFc/8+FJo0fsDm8Aa4gJfKkqc6vDl/IpFgh"
+        crossorigin="anonymous"></script>
+</body>
+</html>

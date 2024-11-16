@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>SATBAYEV UNIVERSITY</title>
+    <!-- Подключение Font Awesome (или другой библиотеки иконок) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            background-color: #F7F7F7;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer {
+            margin-top: auto;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .button-container .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            height: 200px; /* Уменьшаем высоту карточек */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-container .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .button-container .card-body {
+            text-align: center;
+        }
+
+        .button-container .card-title {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .contact-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .contact-container h2 {
+            margin-top: 0;
+        }
+
+        .contact-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-container li {
+            margin-bottom: 10px;
+        }
+
+        .contact-container a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #2954b3;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+            text-align: center;
+        }
+
+        .contact-container a:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<header class="bg-primary text-white py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h2 class="m-0">Satbayev University</h2>
+        <div class="user-profile d-flex align-items-center">
+            <a href="ссылка_на_страницу_профиля" class="btn btn-outline-light mr-2">
+                <i class="fas fa-user mr-1"></i>
+                Профиль пользователя
+            </a>
+            <a href="#" class="btn btn-outline-light">
+                <i class="fas fa-sign-out-alt mr-1"></i>
+                Выход
+            </a>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-primary py-1">
+    <div class="container">
+        <a href="#" class="text-white">
+            <i class="fas fa-home mr-1"></i>
+            Главная
+        </a>
+    </div>
+</nav>
+
+<section class="container py-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Архив</h1>
+            <div class="button-container row">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-user-graduate fa-3x mb-2"></i>
+                            <h5 class="card-title">Студенты</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-globe fa-3x mb-2"></i>
+                            <h5 class="card-title">Зарубежные Студенты</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-user-tie fa-3x mb-2"></i>
+                            <h5 class="card-title">Сотрудники</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <section>
+                <div class="contact-container">
+                    <h2>Обратная связь</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="btn btn-primary btn-block">Обратная связь</a></li>
+                        <li><a href="#" class="btn btn-primary btn-block">Технические неполадки</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    &copy; 2024 Satbayev University
+</footer>
+
+<!-- Подключение Bootstrap JS (необходимо для работы интерактивных элементов Bootstrap) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

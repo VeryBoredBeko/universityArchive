@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <link rel="stylesheet" th:href="@{/css/home_style.css}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+        .table-wrapper {
+            max-height: 400px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        .footer {
+            text-align: center;
+            padding: 1rem;
+        }
+        .card-body {
+            text-align: center;
+        }
+        .card {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header th:insert="~{fragments/general.html :: header}"></header>
+
+<nav th:insert="~{fragments/general.html :: nav}"></nav>
+
+<div class="container mt-2">
+    <h2 class="text-center">Все пользователи</h2>
+    <div class="table-wrapper">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Почта</th>
+                <th>Роль</th>
+                <th>Создано</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:text="${user.createdAt}"></td>
+                <td>
+                    <div class="dropdown">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Действия
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item" th:onclick="callEditModal([[${user.userId}]])" data-toggle="modal" data-target="#recordEditModal" th:attr="data-id=${user.userId}">
+                            Изменить роль
+                        </button>
+                        <form th:action="@{'/admin/users/' + ${user.userId} + '/delete'}" method="post">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class="btn dropdown-item btn-danger">Удалить пользователя</button>
+                        </form>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="modalContainer"></div>
+
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function callEditModal(id) {
+            $.get('/admin/users/' + id + '/edit', function(data) {
+                $('#modalContainer').html(data);
+                $('#changeUserRoleModal').modal('show');
+
+                $('#changeUserRoleModal').on('hidden.bs.modal', function () {
+                    $('#modalContainer').html('');
+                });
+
+                $('#changeUserRoleModal').find('.btn-close, .btn-secondary').on('click', function(){
+                    $('#changeUserRoleModal').modal('hide');
+                });
+            });
+    }
+</script>
+
+</body>
+</html>

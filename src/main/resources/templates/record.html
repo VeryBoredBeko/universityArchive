@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Record</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Стили для отступов -->
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Record Details</h2>
+    <div th:if="${record}">
+        <p>First Name: <span th:text="${record.firstName}"></span></p>
+        <p>Last Name: <span th:text="${record.lastName}"></span></p>
+        <p>Year of Graduation: <span th:text="${record.yearOfGraduation}"></span></p>
+        <p>Year of Employment: <span th:text="${record.yearOfEmployment}"></span></p>
+        <p>Faculty: <span th:text="${record.faculty}"></span></p>
+        <p>Department: <span th:text="${record.department}"></span></p>
+        <p>Record Number: <span th:text="${record.recordNumber}"></span></p>
+        <p>Shelf: <span th:text="${record.shelf}"></span></p>
+        <p>Created At: <span th:text="${record.createdAt}"></span></p>
+        <p>Updated At: <span th:text="${record.updatedAt}"></span></p>
+    </div>
+
+    <a class="btn btn-primary" th:href="@{'/records/archivist/' + ${record.recordId} + '/edit'}">Edit</a></br>
+
+    <form th:action="@{'/records/archivist/' + ${record.recordId} + '/delete'}" method="post">
+        <input type="hidden" name="_method" value="delete"> <!-- Для указания DELETE метода -->
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
+    <h2>Comments List</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>User</th>
+            <th>Comment</th>
+            <th>Created at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment : ${comments}">
+            <td th:text="${comment.user.email}"></td>
+            <td th:text="${comment.commentText}"></td>
+            <td th:text="${comment.createdAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{'/records/' + ${record.recordId} + '/comments/add'}" method="post" th:object="${commentForm}"
+          class="needs-validation" novalidate>
+
+        <input type="hidden" name="user" th:field="${commentForm.user}">
+        <input type="hidden" name="record" th:field="${commentForm.record}">
+
+        <div class="form-group">
+            <label for="commentText">Text: </label>
+            <input type="text" class="form-control" id="commentText" th:field="*{commentText}" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+
+</div>
+<!-- Подключение Bootstrap JS (необходимо только если используются компоненты JS) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

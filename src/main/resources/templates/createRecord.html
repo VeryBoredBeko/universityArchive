@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Record</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Create Record</h2>
+    <form th:action="@{/records/archivist/save}" method="post" th:object="${recordForm}">
+
+        <div class="form-group">
+            <label for="firstName">First Name: </label>
+            <input type="text" id="firstName" class="form-control" th:field="*{firstName}">
+            <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name: </label>
+            <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
+            <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="yearOfGraduation">Year Of Graduation: </label>
+            <input type="number" id="yearOfGraduation" class="form-control" th:field="*{yearOfGraduation}">
+        </div>
+
+        <div class="form-group">
+            <label for="yearOfEmployment">Year of Employment: </label>
+            <input type="number" id="yearOfEmployment" class="form-control" th:field="*{yearOfEmployment}">
+        </div>
+
+        <div class="form-group">
+            <label for="faculty">Faculty: </label>
+            <input type="text" id="faculty" class="form-control" th:field="*{faculty}">
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department: </label>
+            <input type="text" id="department" class="form-control" th:field="*{department}">
+        </div>
+
+        <div class="form-group">
+            <label for="recordNumber">Record Number: </label>
+            <input type="number" id="recordNumber" class="form-control" th:field="*{recordNumber}">
+            <div class="text-danger" th:if="${#fields.hasErrors('recordNumber')}" th:errors="*{recordNumber}">Record Number Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="shelfId">Shelf ID: </label>
+            <select id="shelfId" class="form-control" th:field="*{shelf}">
+                <option th:each="shelf : ${shelves}" th:value="${shelf.shelfId}" th:text="${shelf.shelfNumber + ' - ' + shelf.description}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies (if needed) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Records List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Records List</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Year of Graduation</th>
+            <th>Year of Employment</th>
+            <th>Faculty</th>
+            <th>Department</th>
+            <th>Record Number</th>
+            <th>Shelf ID</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.recordId}"></td>
+            <td th:text="${record.firstName}"></td>
+            <td th:text="${record.lastName}"></td>
+            <td th:text="${record.yearOfGraduation}"></td>
+            <td th:text="${record.yearOfEmployment}"></td>
+            <td th:text="${record.faculty}"></td>
+            <td th:text="${record.department}"></td>
+            <td th:text="${record.recordNumber}"></td>
+            <td th:text="${record.shelf.shelfId}"></td>
+            <td th:text="${record.createdAt}"></td>
+            <td th:text="${record.updatedAt}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{'/records/' + ${record.recordId}}">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

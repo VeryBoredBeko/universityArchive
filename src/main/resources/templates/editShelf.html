@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Shelf</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h2 class="my-4">Edit Shelf</h2>
+    <div th:if="${shelf}">
+        <form th:action="@{'/shelves/archivist/' + ${shelf.shelfId} + '/edit/save'}" method="post" th:object="${shelfForm}" class="needs-validation">
+
+            <div class="form-group">
+                <label for="shelfNumber">Shelf Number: </label>
+                <input type="text" class="form-control" id="shelfNumber" th:field="*{shelfNumber}">
+                <p>Old value of ShelfNumber: <span th:text="${shelf.shelfNumber}"></span></p>
+                <div class="text-danger" th:if="${#fields.hasErrors('shelfNumber')}" th:errors="*{shelfNumber}">ShelfNumber Error</div>
+            </div>
+
+            <div class="form-group">.
+                <label for="description">Description: </label>
+                <input type="text" class="form-control" id="description" th:field="*{description}">
+                <p>Old value of Description: <span th:text="${shelf.description}"></span></p>
+                <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap JS и зависимостей Popper.js и jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-vc/g6uqQZ7z9P6tDk5OwC4WvDmjr9XFOkRbqnEKx27pcNaY0K2b60OHEtc1zP5KI"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/jFc/8+FJo0fsDm8Aa4gJfKkqc6vDl/IpFgh"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="modal fade" id="recordEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:fragment="recordEditModal">
+    <form th:action="@{'/students/records/archivist/' + ${recordId} + '/edit/save'}" method="post" th:object="${recordForm}">
+
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Изменить запись</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label for="editIin">ИИН:</label>
+                        <input type="text" id="editIin" class="form-control" th:field="*{iin}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('iin')}" th:errors="*{iin}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editFirstName">Имя: </label>
+                        <input type="text" id="editFirstName" class="form-control" th:field="*{firstName}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editLastName">Фамилия: </label>
+                        <input type="text" id="editLastName" class="form-control" th:field="*{lastName}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editCountry">Страна: </label>
+                        <input type="text" id="editCountry" class="form-control" th:field="*{country}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editRegion">Регион: </label>
+                        <input type="text" id="editRegion" class="form-control" th:field="*{region}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('region')}" th:errors="*{region}"></div>
+                    </div>
+
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <label class="col-form-label col-sm-2 pt-0">Резидент РК</label>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="editGridRadios1" th:field="*{isResident}" value="true">
+                                    <label class="form-check-label" for="editGridRadios1">
+                                        Является
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="editGridRadios2" th:field="*{isResident}" value="false">
+                                    <label class="form-check-label" for="editGridRadios2">
+                                        Не является
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <label for="editYearOfEnrollment">Год поступления: </label>
+                        <input type="number" id="editYearOfEnrollment" class="form-control" th:field="*{yearOfEnrollment}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editYearOfGraduation">Год выпуска: </label>
+                        <input type="number" id="editYearOfGraduation" class="form-control" th:field="*{yearOfGraduation}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editFaculty">Факультет: </label>
+                        <input type="text" id="editFaculty" class="form-control" th:field="*{faculty}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editDepartment">Кафедра: </label>
+                        <input type="text" id="editDepartment" class="form-control" th:field="*{department}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editRecordNumber">Номер записи: </label>
+                        <input type="number" id="editRecordNumber" class="form-control" th:field="*{recordNumber}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('recordNumber')}" th:errors="*{recordNumber}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editShelfId">Номер полки: </label>
+                        <select id="editShelfId" class="form-control" th:field="*{shelf}">
+                            <option th:each="shelf : ${shelves}" th:value="${shelf.shelfId}" th:text="${shelf.shelfNumber + ' - ' + shelf.description}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+            </div>
+
+    </form>
+</div>
+
+</body>
+</html>

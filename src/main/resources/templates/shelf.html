@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Shelf</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Стили для отступов -->
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Shelf Details</h2>
+    <div th:if="${shelf}">
+        <p>ID: <span th:text="${shelf.shelfId}"></span></p>
+        <p>Shelf Number: <span th:text="${shelf.shelfNumber}"></span></p>
+        <p>Description: <span th:text="${shelf.description}"></span></p>
+    </div>
+    <a class="btn btn-primary" th:href="@{'/shelves/archivist/' + ${shelf.shelfId} + '/edit'}">Edit</a></br>
+    <form th:action="@{'/shelves/archivist/' + ${shelf.shelfId} + '/delete'}" method="post">
+        <input type="hidden" name="_method" value="delete"> <!-- Для указания DELETE метода -->
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+<!-- Подключение Bootstrap JS (необходимо только если используются компоненты JS) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

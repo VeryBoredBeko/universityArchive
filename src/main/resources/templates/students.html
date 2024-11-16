@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Студенты - Satbayev University</title>
+    <!-- Подключение Font Awesome (или другой библиотеки иконок) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F7F7F7;
+            background-size: cover;
+            background-position: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #566F9E;
+            color: #fff;
+            padding: 8px 20px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-icon {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .user-profile a {
+            display: flex;
+            align-items: center;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .user-profile a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: #566F9E;
+            padding: 1px;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff; /* Цвет ссылок, замените на свой */
+            margin-right: 15px;
+            padding: 5px 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        nav i {
+            margin-right: 8px;
+        }
+
+        section {
+            padding: 20px;
+            color: #333; /* Цвет текста контента, замените на свой */
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .search-container input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-container button {
+            padding: 5px 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-view {
+            color: #fff;
+            background-color: #007BFF;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-view:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            clear: both;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Стили для модального окна */
+        .modal {
+            display: none;
+        position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-edit:hover {
+            background-color: #218838;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>Satbayev University</h2>
+    <div class="user-profile">
+        <a href="ссылка_на_страницу_профиля">
+            <i class="fas fa-user user-icon"></i>
+            Профиль пользователя
+        </a>
+    </div>
+</header>
+
+<nav>
+    <a href="#"><i class="fas fa-home"></i> Главная</a>
+</nav>
+
+<section>
+    <h1>Студенты</h1>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Поиск по ID...">
+        <button onclick="searchRecords()">Поиск</button>
+    </div>
+    <h2>Records List</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Year of Graduation</th>
+            <th>Year of Employment</th>
+            <th>Faculty</th>
+            <th>Department</th>
+            <th>Record Number</th>
+            <th>Shelf ID</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="recordsTableBody">
+        <!-- Данные о студентах будут добавлены здесь через JavaScript -->
+        </tbody>
+    </table>
+</section>
+
+<!-- Модальное окно -->
+<div id="recordModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Информация о студенте</h2>
+        <div id="studentInfo">
+            <!-- Информация о студенте будет добавлена здесь через JavaScript -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn-edit" onclick="editRecord()">Редактировать</button>
+            <button class="btn-delete" onclick="confirmDelete()">Удалить</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2024 Satbayev University
+</footer>
+
+<script>
+    // Пример данных студентов (вместо базы данных)
+    const records = [
+        {
+            recordId: 1,
+    firstName: 'Иван',
+                lastName: 'Иванов',
+                yearOfGraduation: 2020,
+                yearOfEmployment: 2021,
+                faculty: 'Инженерия',
+                department: 'Механика',
+                recordNumber: '001',
+                shelf: { shelfId: 'A1' },
+                createdAt: '2020-01-01',
+                updatedAt: '2021-01-01'
+            },
+            {
+                recordId: 2,
+                firstName: 'Петр',
+                lastName: 'Петров',
+                yearOfGraduation: 2019,
+                yearOfEmployment: 2020,
+                faculty: 'Информационные технологии',
+                department: 'Программирование',
+                recordNumber: '002',
+                shelf: { shelfId: 'B2' },
+                createdAt: '2019-01-01',
+                updatedAt: '2020-01-01'
+            }
+            // Добавьте больше записей по необходимости
+        ];
+
+        const recordsTableBody = document.getElementById('recordsTableBody');
+        const recordModal = document.getElementById('recordModal');
+        const studentInfo = document.getElementById('studentInfo');
+        let currentRecord = null;
+
+        // Отображение записей в таблице
+        function displayRecords(records) {
+            recordsTableBody.innerHTML = '';
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML =
+                    <td>${record.recordId}</td>
+                    <td>${record.firstName}</td>
+                    <td>${record.lastName}</td>
+                    <td>${record.yearOfGraduation}</td>
+                    <td>${record.yearOfEmployment}</td>
+                    <td>${record.faculty}</td>
+                    <td>${record.department}</td>
+                    <td>${record.recordNumber}</td>
+                    <td>${record.shelf.shelfId}</td>
+                    <td>${record.createdAt}</td>
+                    <td>${record.updatedAt}</td>
+                    <td>
+                        <a href="#" class="btn-view" onclick="viewRecord(${record.recordId})">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+                ;
+                recordsTableBody.appendChild(row);
+            });
+        }
+
+        // Поиск записей по ID
+        function searchRecords() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const filteredRecords = records.filter(record => record.recordId.toString().includes(searchInput));
+            displayRecords(filteredRecords);
+        }
+
+        // Открытие модального окна с информацией о студенте
+        function viewRecord(recordId) {
+            currentRecord = records.find(record => record.recordId === recordId);
+            studentInfo.innerHTML = `
+                <p><strong>ID:</strong> ${currentRecord.recordId}</p>
+                <p><strong>First Name:</strong> <input type="text" id="editFirstName" value="${currentRecord.firstName}"></p>
+                <p><strong>Last Name:</strong> <input type="text" id="editLastName" value="${currentRecord.lastName}"></p>
+                <p><strong>Year of Graduation:</strong> <input type="text" id="editYearOfGraduation" value="${currentRecord.yearOfGraduation}"></p>
+                <p><strong>Year of Employment:</strong> <input type="text" id="editYearOfEmployment" value="${currentRecord.yearOfEmployment}"></p>
+                <p><strong>Faculty:</strong> <input type="text" id="editFaculty" value="${currentRecord.faculty}"></p>
+                <p><strong>Department:</strong> <input type="text" id="editDepartment" value="${currentRecord.department}"></p>
+                <p><strong>Record Number:</strong> <input type="text" id="editRecordNumber" value="${currentRecord.recordNumber}"></p>
+                <p><strong>Shelf ID:</strong> <input type="text" id="editShelfId" value="${currentRecord.shelf.shelfId}"></p>
+                <p><strong>Created At:</strong> ${currentRecord.createdAt}</p>
+                <p><strong>Updated At:</strong> ${currentRecord.updatedAt}</p>
+            `;
+            recordModal.style.display = 'block';
+        }
+
+        // Закрытие модального окна
+        function closeModal() {
+            recordModal.style.display = 'none';
+        }
+
+        // Редактирование записи
+        function editRecord() {
+            currentRecord.firstName = document.getElementById('editFirstName').value;
+            currentRecord.lastName = document.getElementById('editLastName').value;
+            currentRecord.yearOfGraduation = document.getElementById('editYearOfGraduation').value;
+            currentRecord.yearOfEmployment = document.getElementById('editYearOfEmployment').value;
+            currentRecord.faculty = document.getElementById('editFaculty').value;
+            currentRecord.department = document.getElementById('editDepartment').value;
+            currentRecord.recordNumber = document.getElementById('editRecordNumber').value;
+            currentRecord.shelf.shelfId = document.getElementById('editShelfId').value;
+            currentRecord.updatedAt = new Date().toISOString().split('T')[0];
+            displayRecords(records);
+            closeModal();
+        }
+
+        // Подтверждение удаления записи
+        function confirmDelete() {
+            if (confirm('Вы уверены, что хотите удалить эту запись?')) {
+                deleteRecord();
+            }
+        }
+
+        // Удаление записи
+        function deleteRecord() {
+            records.splice(records.indexOf(currentRecord), 1);
+            displayRecords(records);
+            closeModal();
+        }
+
+        // Инициализация отображения записей
+        displayRecords(records);
+</script>
+</body>
+</html>

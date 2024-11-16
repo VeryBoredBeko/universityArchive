@@ -1,0 +1,90 @@
+                body {
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #F7F7F7;
+                    font-family: Arial, sans-serif;
+                }
+
+                .footer {
+                    margin-top: auto;
+                    background-color: #333;
+                    color: #fff;
+                    text-align: center;
+                    padding: 10px;
+                }
+
+                .button-container .card {
+                    background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                    height: 200px; /* Уменьшаем высоту карточек */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .button-container .card:hover {
+                    transform: translateY(-5px);
+                }
+
+                .button-container .card-body {
+                    text-align: center;
+                }
+
+                .button-container .card-title {
+                    margin-top: 10px;
+                    margin-bottom: 0;
+                }
+
+                .contact-container {
+                    background-color: rgba(255, 255, 255, 0.8);
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    margin-bottom: 20px;
+                }
+
+                .contact-container h2 {
+                    margin-top: 0;
+                }
+
+                .contact-container ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .contact-container li {
+                    margin-bottom: 10px;
+                }
+
+                .contact-container a {
+                    display: block;
+                    padding: 10px 20px;
+                    text-decoration: none;
+                    color: #fff;
+                    background-color: #2954b3;
+                    border-radius: 4px;
+                    transition: background-color 0.3s, color 0.3s;
+                    text-align: center;
+                }
+
+                .contact-container a:hover {
+                    background-color: #007BFF;
+                    color: #fff;
+                }
+
+                .card-link {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                .card-link:hover {
+                    text-decoration: none;
+                    color: inherit;
+                }

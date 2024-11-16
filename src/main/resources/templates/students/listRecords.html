@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список студентов</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <link rel="stylesheet" th:href="@{/css/home_style.css}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+        .footer {
+            text-align: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header th:insert="~{fragments/general.html :: header}"></header>
+
+<nav th:insert="~{fragments/general.html :: nav}"></nav>
+
+<div class="container">
+    <h2 class="mt-4 mb-3">Список студентов</h2>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Добавить запись</button>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/students/records/list}">
+            <fieldset class="form-group">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="isResident" id="resident" value="true">
+                            <label class="form-check-label" for="resident">Резидент</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="isResident" id="nonResident" value="false">
+                            <label class="form-check-label" for="nonResident">Не резидент</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <input class="form-control mr-sm-2" type="search" name="searchText" placeholder="Поиск" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Поиск</button>
+        </form>
+    </nav>
+
+
+
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>ИИН</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Факультет</th>
+                    <th>Кафедра</th>
+                    <th>Подробно</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="record : ${records}">
+                    <td th:text="${record.recordId}"></td>
+                    <td th:text="${record.iin}"></td>
+                    <td th:text="${record.firstName}"></td>
+                    <td th:text="${record.lastName}"></td>
+                    <td th:text="${record.faculty}"></td>
+                    <td th:text="${record.department}"></td>
+                    <td>
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#userDetailsModal" th:attr="data-id=${record.recordId}">
+                            <i class="bi bi-eye-fill"></i>
+                        </a>
+                    </td>
+                    <td><div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Еще
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" th:onclick="callEditModal([[${record.recordId}]])" data-toggle="modal" data-target="#recordEditModal" th:attr="data-id=${record.recordId}">
+                                Изменить
+                            </button>
+                            <form th:action="@{'/students/records/archivist/' + ${record.recordId} + '/delete'}" method="post">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn dropdown-item btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    </div></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${pageNumber == 1} ? 'disabled'">
+                    <a class="page-link" href="#" th:href="@{/students/records/list(pageNumber=${pageNumber - 1}, searchText=${searchText})}">Предыдущяя страница</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(start, end)}" th:classappend="${i == pageNumber} ? 'active'">
+                    <a class="page-link" href="#" th:href="@{/students/records/list(pageNumber=${i}, searchText=${searchText})}" th:text="${i}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${pageNumber == totalPages} ? 'disabled'">
+                    <a class="page-link" href="#" th:href="@{/students/records/list(pageNumber=${pageNumber + 1}, searchText=${searchText})}">Следующая страница</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form th:action="@{/students/records/archivist/save}" method="post" th:object="${recordForm}">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Добавить новую запись</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="iin">ИИН: </label>
+                                <input type="text" id="iin" class="form-control" th:field="*{iin}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('iin')}" th:errors="*{iin}"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstName">Имя: </label>
+                                <input type="text" id="firstName" class="form-control" th:field="*{firstName}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName">Фамилия: </label>
+                                <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">Страна: </label>
+                                <input type="text" id="country" class="form-control" th:field="*{country}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="region">Регион: </label>
+                                <input type="text" id="region" class="form-control" th:field="*{region}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('region')}" th:errors="*{region}"></div>
+                            </div>
+
+                            <fieldset class="form-group">
+                                <div class="row">
+                                    <label class="col-form-label col-sm-2 pt-0">Резидент РК</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" th:field="*{isResident}" value="true">
+                                            <label class="form-check-label" for="gridRadios1">
+                                                Является
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" th:field="*{isResident}" value="false">
+                                            <label class="form-check-label" for="gridRadios2">
+                                                Не является
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group">
+                                <label for="yearOfEnrollment">Год поступления: </label>
+                                <input type="number" id="yearOfEnrollment" class="form-control" th:field="*{yearOfEnrollment}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="yearOfGraduation">Год выпуска: </label>
+                                <input type="number" id="yearOfGraduation" class="form-control" th:field="*{yearOfGraduation}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="faculty">Факультет: </label>
+                                <input type="text" id="faculty" class="form-control" th:field="*{faculty}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department">Кафедра: </label>
+                                <input type="text" id="department" class="form-control" th:field="*{department}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recordNumber">Номер записи: </label>
+                                <input type="number" id="recordNumber" class="form-control" th:field="*{recordNumber}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('recordNumber')}" th:errors="*{recordNumber}"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="shelfId">Номер полки: </label>
+                                <select id="shelfId" class="form-control" th:field="*{shelf}">
+                                    <option th:each="shelf : ${shelves}" th:value="${shelf.shelfId}" th:text="${shelf.shelfNumber + ' - ' + shelf.description}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalContainer"></div>
+
+</div>
+
+<footer th:insert="~{fragments/general.html :: footer}"></footer>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('a[data-id]').on('click', function(){
+            var recordId = $(this).attr('data-id');
+            $.get('/students/records/' + recordId, function(data) {
+                $('#modalContainer').html(data);
+                $('#userDetailsModal').modal('show');
+
+                $('#userDetailsModal').on('hidden.bs.modal', function () {
+                    $('#modalContainer').html('');
+                });
+
+                $('#userDetailsModal').find('.btn-close, .btn-secondary').on('click', function(){
+                    $('#userDetailsModal').modal('hide');
+                });
+            });
+        });
+    });
+</script>
+
+<script>
+    function callEditModal(id) {
+            $.get('/students/records/archivist/' + id + '/edit', function(data) {
+                $('#modalContainer').html(data);
+                $('#recordEditModal').modal('show');
+
+                $('#recordEditModal').on('hidden.bs.modal', function () {
+                    $('#modalContainer').html('');
+                });
+
+                $('#recordEditModal').find('.btn-close, .btn-secondary').on('click', function(){
+                    $('#recordEditModal').modal('hide');
+                });
+            });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/log_style.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <form method="post" th:action="@{/register}" th:object="${registrationForm}">
+
+        <div class="form-group">
+            <label for="firstName">Имя: </label>
+            <input type="text" id="firstName" class="form-control" th:field="*{firstName}">
+            <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+        </div>
+
+        <!-- Өзге форма өрістері... -->
+
+        <div class="form-group">
+            <label for="lastName">Фамилия: </label>
+            <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
+            <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Почта: </label>
+            <input type="email" id="email" class="form-control" th:field="*{email}">
+            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль: </label>
+            <input type="password" id="password" class="form-control" th:field="*{passwordHash}">
+            <div class="text-danger" th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}"></div>
+        </div>
+
+        <input type="submit" value="Регистрация">
+    </form>
+</body>
+</html>

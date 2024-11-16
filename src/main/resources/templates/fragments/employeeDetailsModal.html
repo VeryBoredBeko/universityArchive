@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="modal fade" id="employeeDetailsModal" th:fragment="employeeDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5">Полные данные записи</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div th:if="${record}">
+                    <p>ИИН: <span th:text="${record.iin}"></span></p>
+                    <p>Имя: <span th:text="${record.firstName}"></span></p>
+                    <p>Фамилия: <span th:text="${record.lastName}"></span></p>
+                    <p>Страна: <span th:text="${record.country}"></span></p>
+                    <p>Регион: <span th:text="${record.region}"></span></p>
+                    <p>Резидент: <span th:text="${record.isResident}"></span></p>
+                    <p>Год поступления: <span th:text="${record.yearOfHire}"></span></p>
+                    <p>Год выпуска: <span th:text="${record.yearOfTermination}"></span></p>
+                    <p>Факультет: <span th:text="${record.faculty}"></span></p>
+                    <p>Кафедра: <span th:text="${record.department}"></span></p>
+                    <p>Номер записи: <span th:text="${record.recordNumber}"></span></p>
+                    <p>Полка: <span th:text="${record.shelf}"></span></p>
+                    <p>Создано: <span th:text="${record.createdAt}"></span></p>
+                    <p>обновлено: <span th:text="${record.updatedAt}"></span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

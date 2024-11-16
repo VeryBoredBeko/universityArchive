@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Student Modal</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="modal fade" id="addModal" th:fragment="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form th:action="@{/records/archivist/save}" method="post" th:object="${recordForm}">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title">Добавить новую запись</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="firstName">First Name: </label>
+                        <input type="text" id="firstName" class="form-control" th:field="*{firstName}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name: </label>
+                        <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="yearOfGraduation">Year Of Graduation: </label>
+                        <input type="number" id="yearOfGraduation" class="form-control" th:field="*{yearOfGraduation}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="yearOfEmployment">Year of Employment: </label>
+                        <input type="number" id="yearOfEmployment" class="form-control" th:field="*{yearOfEmployment}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="faculty">Faculty: </label>
+                        <input type="text" id="faculty" class="form-control" th:field="*{faculty}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department: </label>
+                        <input type="text" id="department" class="form-control" th:field="*{department}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recordNumber">Record Number: </label>
+                        <input type="number" id="recordNumber" class="form-control" th:field="*{recordNumber}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('recordNumber')}" th:errors="*{recordNumber}">Record Number Error</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shelfId">Shelf ID: </label>
+                        <select id="shelfId" class="form-control" th:field="*{shelf}">
+                            <option th:each="shelf : ${shelves}" th:value="${shelf.shelfId}" th:text="${shelf.shelfNumber + ' - ' + shelf.description}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
